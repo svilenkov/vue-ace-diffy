@@ -1,5 +1,5 @@
 {
-  "name": "@sysco-middleware/vue-ace-diff",
+  "name": "vue-ace-diffy",
   "version": "0.1.0",
   "private": false,
   "main": "src/index.js",

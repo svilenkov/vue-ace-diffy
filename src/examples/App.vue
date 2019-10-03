@@ -60,9 +60,9 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~ace-diff/dist/ace-diff.min.css';
+@import '~ace-diffy/dist/ace-diffy-light.css';
 
-.acediff__container {
+.acediffy__container {
   width: 700px;
   height: 200px;
   margin: 2rem auto;

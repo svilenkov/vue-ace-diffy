@@ -1,10 +1,10 @@
-import AceDiff from 'ace-diff'
+import AceDiffy from 'ace-diffy'
 
 export default {
   render: function (createElement) {
     return createElement(
       'div', {
-        class: 'acediff__container',
+        class: 'acediffy__container',
         attrs: {
           id: this.editorId
         },
@@ -12,25 +12,12 @@ export default {
       }
     )
   },
-  props: {
-    editorId: {
-      default: 'ace-diff',
-      type: String
-    },
-    leftContent: {
-      type: String,
-      default: ''
-    },
-    rightContent: {
-      type: String,
-      default: ''
-    }
-  },
   data () {
     return {
       theme: '',
       mode: '',
-      editor: null
+      editor: null,
+      editorId: 'ace-diffy'
     }
   },
   watch: {
@@ -81,7 +68,7 @@ export default {
       right.session.setMode(mode)
     },
     createEditor (options) {
-      this.editor = new AceDiff({
+      const editor = new AceDiffy({
         element: `#${this.editorId}`,
         left: {
           content: this.leftContent || ''
@@ -90,9 +77,10 @@ export default {
           content: this.rightContent || ''
         }
       })
-
-      this.editor.setOptions(options || {})
-      // TODO: listen to all events
+      editor.create().then(function () {
+        editor.setOptions(options || {})
+      })
+      this.editor = editor
     }
   },
   beforeDestroy () {

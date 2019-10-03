@@ -11,45 +11,47 @@ initial code extracted & modified from NPM package: `@sysco-middleware/vue-ace-d
 
 Include the Ace Diff stylesheet, or use your own.
 
-`.acediff__container` CSS class wraps the AceDiff editor. You need to set an explicit width and height, as well as the `position: relative`
+`.acediffy__container` CSS class wraps the AceDiff editor. You need to set an explicit width and height, as well as the `position: relative`
 
-Create a new component and extend it with the vue-ace module.
+Create a new component and **extend** it with the `AceDiffy` module.
 
 ```vue
 <template>
-  <div>
-  </div>
+  <div id="ace-diffy"></div>
 </template>
 
 <script>
-  import AceDiff from 'vue-ace-diffy'
+  import AceDiffy from 'vue-ace-diffy'
 
   export default {
-    extends: AceDiff,
+    extends: AceDiffy,
     data() {
       // Default options
-      // Can also be passed as props to <AceDiff/>
       return {
         leftContent: '', // Left pane diff text content
-        rightContent: '' // Right pane diff text content
-        editorId: 'ace-diff' // AceDiff element ID
+        rightContent: '', // Right pane diff text content
+        editorId: 'ace-diffy' // AceDiffy element ID
       }
     },
     mounted () {
+      require('brace/ext/language_tools') // important prerequisite for syntax highlighting
+      require('brace/mode/json') // change this to any syntax (mode) that will be set
+      require('brace/theme/github') // change if you want to use a different theme
+
       // Initialize a new Ace Diff editor
       this.createEditor({
-        // Options
+        mode: 'ace/mode/json',
+        theme: 'ace/theme/github'
       })
     }
   }
 </script>
 
-<style lang="scss">
-@import '~ace-diff/dist/ace-diff.min.css';
+<style>
+@import '~ace-diffy/dist/ace-diffy-light.css';
 
-/* Don't forget the AceDiff needs a relative container with specific width and height */
 .acediff__container {
-	width: 800px;
+  width: 700px;
   height: 200px;
   margin: 2rem auto;
   position: relative;
